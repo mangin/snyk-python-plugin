@@ -67,6 +67,13 @@ def create_tree_of_packages_dependencies(
     def create_children_recursive(root_package, key_tree, ancestors, all_packages_map):
         root_name = root_package[NAME].lower()
         if root_name not in key_tree:
+            print('Before raise')
+            print('Actual', root_name)
+            expected = next(k for k in key_tree.keys() if 'backport' in k) 
+            print('Expected', expected)
+            normalized = canonicalize_package_name(root_name)
+            print('Normalized', normalized)
+            print('Expected and Normalized are ', "equal" if normalized == expected else "not equal" )
             msg = 'Required packages missing: ' + root_name
             if allow_missing:
                 sys.stderr.write(msg + "\n")
